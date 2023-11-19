@@ -1,7 +1,10 @@
 package com.example.gabriel.coursesspring.domain.entities;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "book")
 public class Book {
     @Id
     @SequenceGenerator(name = "book_sequence", allocationSize = 1)
@@ -9,16 +12,20 @@ public class Book {
     private Integer id;
     private String name;
 
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime createdAt;
+
     /**
-     * LAZY → El join solo se ejecuta solo cuando se accede explícitamente a ella
+     * LAZY → El join solo se ejecuta solo cuando se accede explícitamente a ella (en este caso usar @JsonIgnore)
      * EAGER → El join se ejecuta cuando se recupera la entidad principal.
      * */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
     private Student student;
 
-    public Book(String name, Student student) {
+    public Book(String name, LocalDateTime createdAt, Student student) {
         this.name = name;
+        this.createdAt = createdAt;
         this.student = student;
     }
 
@@ -37,6 +44,10 @@ public class Book {
         return student;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -47,5 +58,19 @@ public class Book {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdAt=" + createdAt +
+                ", student=" + student +
+                '}';
     }
 }

@@ -1,10 +1,7 @@
 package com.example.gabriel.coursesspring.web.rest;
 
-import com.example.gabriel.coursesspring.CoursesSpringApplication;
 import com.example.gabriel.coursesspring.domain.entities.Book;
 import com.example.gabriel.coursesspring.services.BookService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
